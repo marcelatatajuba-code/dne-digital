@@ -1,0 +1,15 @@
+Nunito Sans
+Copyright 2017 The Nunito Sans Project Authors
+(https://github.com/googlefonts/NunitoSans)
+
+Licenciada sob a SIL Open Font License, Version 1.1.
+Texto integral: https://openfontlicense.org
+
+Arquivos incluidos (subconjuntos latin e latin-ext, fonte variavel,
+obtidos do Google Fonts):
+  nunito-sans-latin.woff2
+  nunito-sans-latin-ext.woff2
+
+Esta e a fonte usada pelo aplicativo DNE original; foi identificada
+por comparacao das letras com as capturas do aplicativo. Vem no
+repositorio para a replica academica continuar identica offline.

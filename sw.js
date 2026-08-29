@@ -3,7 +3,7 @@
  * Guarda os arquivos do app em cache para que ele abra sem internet,
  * que é o que permite instalar como aplicativo no iPhone.
  */
-const CACHE = 'dne-replica-v1';
+const CACHE = 'dne-replica-v2';
 
 const ARQUIVOS = [
   './',
@@ -14,6 +14,10 @@ const ARQUIVOS = [
   './js/app.js',
   './manifest.webmanifest',
   './assets/foto-exemplo.svg',
+  './assets/fontes/nunito-sans-latin.woff2',
+  './assets/fontes/nunito-sans-latin-ext.woff2',
+  './assets/img/dne-logo.png',
+  './assets/img/dne-logo-branco.png',
   './assets/icone-180.png',
   './assets/icone-192.png',
   './assets/icone-512.png',
