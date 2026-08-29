@@ -226,64 +226,66 @@ body.sem-tabbar .tabbar { display: none; }
   background: var(--superficie); border-radius: var(--raio);
   box-shadow: var(--sombra-1); padding: 14px 15px;
 }
-.banner .emoji { font-size: 22px; line-height: 1; }
+.banner .emoji { font-size: 26px; line-height: 1; flex: none; }
 .banner strong { display: block; font-size: 15px; font-weight: 800; }
-.banner span { font-size: 13.5px; color: var(--texto-2); line-height: 1.35; }
+.banner span { font-size: 13.5px; color: var(--texto-2); line-height: 1.4; }
+.banner .balao > span { max-width: 20ch; }   /* quebra em duas linhas, como no app */
 
 /* =========================================================================
    CARTEIRINHA
    ========================================================================= */
-.cartao {
-  position: relative; overflow: hidden;
-  border-radius: var(--raio-lg);
-  background: var(--superficie-2);
-  box-shadow: var(--sombra-2);
-  padding: 14px;
+/* As fitas coloridas ficam no fundo da TELA, não dentro de um cartão —
+   é por isso que no aplicativo elas aparecem nas frestas entre os cartões
+   e nas bordas. Medidas tiradas da captura endireitada (o mockup do
+   aplicativo estava girado 15 graus). */
+#tela-carteirinha { position: relative; overflow: hidden; }
+#tela-carteirinha::before, #tela-carteirinha::after {
+  content: ""; position: absolute; left: -20%; right: -20%;
+  pointer-events: none; z-index: 0;
 }
-/* faixas coloridas ao fundo, como no cartão original */
-.cartao::before, .cartao::after {
-  content: ""; position: absolute; pointer-events: none; z-index: 0;
+#tela-carteirinha::before {
+  top: 300px; height: 66px; transform: rotate(-20deg);
+  background: linear-gradient(96deg, var(--roxo), var(--magenta));
 }
-.cartao::before {
-  left: -12%; right: -12%; top: 24%; height: 74px;
-  background: linear-gradient(92deg, var(--roxo), var(--magenta));
-  transform: rotate(-7deg); opacity: .85;
+#tela-carteirinha::after {
+  top: 700px; height: 152px; transform: rotate(-20deg);
+  background: linear-gradient(96deg, var(--magenta), var(--roxo));
 }
-.cartao::after {
-  left: -18%; right: -8%; bottom: 6%; height: 58px;
-  background: linear-gradient(92deg, var(--magenta), #e0759f);
-  transform: rotate(6deg); opacity: .55;
-}
+#tela-carteirinha .conteudo { position: relative; z-index: 1; }
 
-.cartao-linha { position: relative; z-index: 1; display: flex; gap: 12px; }
+/* o documento é só o agrupador; quem tem fundo branco são os cartões */
+.doc { display: block; }
+.doc-linha { display: flex; gap: 14px; align-items: stretch; }
 .tile {
   background: var(--superficie); border-radius: 14px;
   box-shadow: var(--sombra-1); padding: 10px;
 }
-.tile-foto { flex: 1; display: grid; place-items: center; }
+.tile-foto { flex: 1; display: grid; place-items: center; min-height: 228px; }
 .tile-foto img { width: 100%; max-width: 148px; aspect-ratio: 3/4; object-fit: cover; border-radius: 10px; }
-.tile-qr { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; }
-.tile-qr .qr { width: 100%; max-width: 132px; }
+.tile-qr { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+.tile-qr .qr { width: 100%; max-width: 138px; }
 .tile-qr .qr svg { width: 100%; height: auto; display: block; }
-.tile-qr .numero { font-size: 14px; font-weight: 800; letter-spacing: .04em; color: var(--texto); }
+.tile-qr .numero { font-size: 14px; font-weight: 700; letter-spacing: .04em; color: var(--texto); }
 
-.tile-dados { position: relative; z-index: 1; margin-top: 12px; }
-.cartao-nome { font-size: 19px; font-weight: 800; line-height: 1.15; margin-bottom: 9px; letter-spacing: -.01em; }
-.cartao-campo { font-size: 13.5px; line-height: 1.5; color: var(--texto-2); }
-.cartao-campo b { color: var(--texto); font-weight: 700; }
+.tile-dados { margin-top: 18px; padding: 14px 16px 16px; }
+.cartao-nome { font-size: 17px; font-weight: 800; line-height: 1.15; margin-bottom: 10px; letter-spacing: -.01em; }
+/* no aplicativo o rótulo e o valor têm o mesmo peso; nada em negrito */
+.cartao-campo { font-size: 13.5px; line-height: 1.62; color: var(--texto); margin: 0; }
 
-.selo-validade {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 11px; border-radius: 999px;
-  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
-  background: var(--verde-cl); color: var(--verde);
+/* o botão da Wallet é uma pílula centrada, não uma barra de ponta a ponta */
+.wallet-apple { margin-top: 16px; display: flex; justify-content: center; }
+/* selo da Carteira da Apple: preto, ícone colorido e o texto em duas
+   linhas, como o do aplicativo */
+.selo-wallet {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 42px; padding: 0 14px; border-radius: 9px;
+  background: #000; color: #fff; border: none; cursor: pointer;
 }
-.selo-validade.vencido { background: #fdeceb; color: var(--vermelho); }
-.selo-validade .ponto { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulsa 1.8s ease-in-out infinite; }
-@keyframes pulsa { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
-
-.wallet-apple { margin-top: 12px; }
-.wallet-apple .btn { min-height: 46px; font-size: 14.5px; }
+.selo-wallet svg { flex: none; }
+.selo-wallet .txt { display: block; text-align: left; line-height: 1.05; }
+.selo-wallet .txt i { display: block; font-style: normal; font-size: 11px; font-weight: 400; }
+.selo-wallet .txt b { display: block; font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+.selo-wallet:disabled { opacity: .55; cursor: default; }
 
 /* --------------------------------------------------- tela de apresentação */
 #tela-apresentar { background: #fff; color: #14203c; min-height: 100vh; min-height: 100dvh; }

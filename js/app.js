@@ -300,13 +300,12 @@
     $('#cart-validade').textContent = mesAno(e.validade);
     $('#cart-codigo').textContent = numeroCurto(e);
 
-    var selo = $('#selo-validade');
-    selo.classList.toggle('vencido', expirado);
-    selo.lastElementChild.textContent = expirado ? 'Vencido' : 'Válido';
-
+    // o selo verde de "válido" não existe nessa tela do aplicativo;
+    // quando o documento vence, o aviso do topo é que muda
+    $('#banner-titulo').textContent = expirado ? 'Documento vencido' : 'Uhul! Chegou!';
     $('#banner-texto').textContent = expirado
-      ? 'Seu documento venceu. Renove para continuar usando.'
-      : 'Seu DNE está liberado, aproveite.';
+      ? 'Renove o seu DNE para continuar usando.'
+      : 'Desbloquei seu DNE físico e aproveite.';
 
     desenharQr($('#cart-qr'), cargaQrCurta(e, tokenAtual()), 0);
     atualizarBotaoWallet();
@@ -468,9 +467,8 @@
   /* ------------------- documento na Carteira do iPhone ------------------ */
 
   function atualizarBotaoWallet() {
-    $('#btn-wallet-txt').textContent = estado.naCarteira
-      ? 'Já está na Carteira da Apple'
-      : 'Adicionar à Carteira da Apple';
+    $('#btn-wallet-topo').textContent = estado.naCarteira ? 'Já está na' : 'Adicionar à';
+    $('#btn-wallet-txt').textContent = 'Carteira da Apple';
     $('#btn-wallet').disabled = !!estado.naCarteira;
   }
 
