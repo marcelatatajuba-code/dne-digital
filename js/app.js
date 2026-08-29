@@ -718,7 +718,9 @@
 
   function aplicarTema() {
     document.documentElement.dataset.tema = estado.tema;
-    var cor = estado.tema === 'escuro' ? '#070c1c' : '#0d1e4d';
+    // pinta a faixa do sistema com o fundo do app (o azul-marinho antigo
+    // vinha do ícone antigo e não existe em lugar nenhum da interface)
+    var cor = estado.tema === 'escuro' ? '#101627' : '#e4e8f4';
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = cor;
   }
