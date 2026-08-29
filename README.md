@@ -108,13 +108,21 @@ Não é preciso conta de desenvolvedor da Apple, nem Mac, nem pagar nada.
 
 ## Padrão visual
 
-O layout segue o aplicativo original: tema claro sobre fundo off-white, cartões brancos
-arredondados, azul na marca e na tipografia, laranja nas ações, faixa roxa/magenta ao fundo
-do documento e tipografia arredondada (`ui-rounded` / `SF Pro Rounded`, sem fonte externa,
-para o app continuar funcionando offline).
+O layout segue o aplicativo original: tema claro sobre fundo `#E4E8F4`, cartões brancos
+arredondados, azul `#294F99` na marca, laranja `#E86820` nas ações e faixa roxa/magenta ao
+fundo do documento. As cores foram amostradas das capturas do aplicativo.
 
-O logotipo `dne` e os selos das entidades são **desenhos tipográficos próprios**, feitos no
-mesmo estilo do original — não são os arquivos de marca da UNE, da UBES ou da ANPG.
+A tipografia é a **Nunito Sans** (SIL Open Font License), identificada como a fonte do
+aplicativo original pela comparação das letras das capturas com dezesseis famílias livres.
+Os arquivos vêm no repositório, em `assets/fontes/`, e entram no cache do Service Worker —
+o app não depende de servidor de terceiros e continua igual offline. A licença está em
+`assets/fontes/LICENCA.txt`.
+
+O logotipo `dne` em `assets/img/` foi **extraído da captura do aplicativo**, com recuperação
+do canal alfa, e é usado como máscara CSS para acompanhar o tema claro/escuro. Os selos da
+UNE, da UBES e da ANPG continuam sendo desenhos próprios, feitos no mesmo estilo — não são
+os arquivos de marca das entidades. Nada disso implica vínculo com a UNE, a UBES ou a ANPG:
+é uma réplica acadêmica, para estudo de interface.
 
 ## Estrutura dos arquivos
 
