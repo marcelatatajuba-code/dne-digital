@@ -244,11 +244,11 @@ body.sem-tabbar .tabbar { display: none; }
   pointer-events: none; z-index: 0;
 }
 #tela-carteirinha::before {
-  top: 300px; height: 66px; transform: rotate(-20deg);
+  top: calc(300px + var(--topo)); height: 66px; transform: rotate(-20deg);
   background: linear-gradient(96deg, var(--roxo), var(--magenta));
 }
 #tela-carteirinha::after {
-  top: 700px; height: 152px; transform: rotate(-20deg);
+  top: calc(700px + var(--topo)); height: 152px; transform: rotate(-20deg);
   background: linear-gradient(96deg, var(--magenta), var(--roxo));
 }
 #tela-carteirinha .conteudo { position: relative; z-index: 1; }
@@ -455,15 +455,18 @@ body.sem-tabbar .tabbar { display: none; }
 }
 .aviso svg { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--azul); }
 
-/* ------------------------------------------------------ abertura e splash */
-#tela-login { background: var(--superficie); min-height: 100vh; min-height: 100dvh; }
 /* ------------------------------------------------- tela de entrada */
 /* Reproduz a tela de acesso do aplicativo: selo redondo azul, folha
    branca colada no rodapé, campos com borda preta e botões em pílula.
    Medidas tiradas da captura (iPhone 402pt). */
-#tela-login { min-height: 100dvh; display: flex; flex-direction: column; background: var(--fundo); }
+/* o display fica em .ativa: um seletor de id venceria o .tela{display:none}
+   e a tela de login nunca sairia da frente das outras */
+#tela-login { min-height: 100dvh; background: var(--fundo); }
+#tela-login.ativa { display: flex; flex-direction: column; }
+/* em aparelho baixo o conteudo rola em vez de ser cortado */
+.entrada-folha { flex: 1 0 auto; }
 .entrada-marca { flex: none; display: grid; place-items: center;
-  padding: calc(70px + var(--topo)) 0 15px; }
+  padding: calc(11px + var(--topo)) 0 15px; }
 .selo-dne {
   width: 106px; height: 106px; display: grid; place-items: center;
   background: var(--azul); border-radius: 44px;
