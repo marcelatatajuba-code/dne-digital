@@ -52,6 +52,7 @@
     <g id="i-carteira" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.5 16.2c.6-1.5 1.7-2.2 3-2.2s2.4.7 3 2.2M14.5 9.8h4M14.5 13h4"/></g>
     <g id="i-beneficio" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 12.6 12.6 20.6a2 2 0 0 1-2.8 0l-6.4-6.4a2 2 0 0 1-.6-1.4V4.5a2 2 0 0 1 2-2h8.3a2 2 0 0 1 1.4.6l6.1 6.1a2 2 0 0 1 0 2.8Z"/><circle cx="7.8" cy="7.8" r="1.4"/></g>
     <g id="i-perfil" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.7-3.7 3.8-5.6 7.5-5.6s6.8 1.9 7.5 5.6"/></g>
+    <g id="i-seta" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13.5 6.5 19.5 12l-6 5.5"/></g>
     <g id="i-cadeado" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5.2" y="10.6" width="13.6" height="10.4" rx="2.5"/><path d="M8.6 10.6V7.7a3.4 3.4 0 0 1 6.8 0V9"/><circle cx="12" cy="15.8" r="1.15" fill="currentColor" stroke="none"/></g>
     <g id="i-qr" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></g>
     <g id="i-renovar" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14-4.5L4 9"/><path d="M4 4v5h5"/><path d="M4 13a8 8 0 0 0 14 4.5L20 15"/><path d="M20 20v-5h-5"/></g>
@@ -79,48 +80,44 @@
 
 <!-- ============================== LOGIN ============================== -->
 <section class="tela" id="tela-login" aria-label="Entrar">
-  <div class="login-corpo">
-    <div class="login-marca">
-      <div class="logo-dne">dne</div>
-      <p>Documento Nacional do Estudante</p>
-    </div>
+  <!-- Medidas da captura do aplicativo real (iPhone 402pt): selo de 106px,
+       folha branca começando em 190px, campos de 370x56 e botões de 40. -->
+  <div class="entrada-marca">
+    <span class="selo-dne"><span class="logo-dne">dne</span></span>
+  </div>
 
-    <!-- primeira abertura: a pessoa monta o próprio documento -->
-    <div id="bloco-boas-vindas">
-      <p class="abertura-txt">
-        Olá! Monte o seu documento de estudante e tenha a meia-entrada sempre à mão.
-        Coloque a sua foto, o seu nome e os dados da sua instituição.
-      </p>
-      <div class="pilha">
-        <button class="btn" type="button" data-ir="solicitar">Criar o meu documento</button>
-        <button class="btn secundario" type="button" id="btn-demo">Ver um exemplo pronto</button>
-        <button class="btn fantasma" type="button" id="btn-mostrar-login">Já tenho o meu DNE</button>
-      </div>
-    </div>
+  <div class="entrada-folha">
+    <h1 class="entrada-titulo">Já possui o DNE? Para acessar informe:</h1>
 
-    <!-- entrada por CPF e senha, no formato do aplicativo original -->
-    <form id="form-login" novalidate hidden>
-      <p class="abertura-txt">
-        Que bom te ver de novo. Para começar, informe o seu CPF.
-      </p>
-      <div class="campo-linha" id="cf-login-cpf">
-        <label for="login-cpf">CPF</label>
+    <form id="form-login" novalidate>
+      <div class="campo-caixa" id="cf-login-cpf">
         <input id="login-cpf" name="cpf" type="tel" inputmode="numeric" autocomplete="username"
-               placeholder="000.000.000-00" maxlength="14">
-        <p class="ajuda">Digite apenas números</p>
-        <p class="erro">Informe um CPF válido.</p>
+               placeholder="CPF ou Código de Uso" maxlength="14" aria-label="CPF ou Código de Uso">
+        <span class="campo-icone" aria-hidden="true"><svg><use href="#i-qr"/></svg></span>
       </div>
-      <div class="campo-linha" id="cf-login-senha">
-        <label for="login-senha">Senha</label>
-        <input id="login-senha" name="senha" type="password" autocomplete="current-password" placeholder="••••••">
-        <p class="erro">A senha precisa ter ao menos 4 caracteres.</p>
+      <p class="erro">Informe um CPF válido.</p>
+
+      <div class="campo-caixa" id="cf-login-nasc">
+        <input id="login-nasc" name="nascimento" type="tel" inputmode="numeric"
+               placeholder="Data de nascimento" maxlength="10" aria-label="Data de nascimento">
       </div>
-      <div class="pilha mt-24">
-        <button class="btn" type="submit">Continuar</button>
-        <button class="btn fantasma" type="button" id="btn-voltar-boas-vindas">Voltar</button>
-      </div>
+      <p class="erro">Informe a data de nascimento, no formato dia/mês/ano.</p>
+
+      <button class="pilula" type="submit" id="btn-entrar" disabled>
+        <svg class="seta" viewBox="0 0 24 24"><use href="#i-seta"/></svg> Entrar
+      </button>
     </form>
 
+    <div class="ou"><span>OU</span></div>
+
+    <p class="entrada-txt">Solicite um DNE Documento Nacional do Estudante ou acompanhe sua solicitação.</p>
+    <button class="pilula azul" type="button" data-ir="solicitar">
+      <svg class="seta" viewBox="0 0 24 24"><use href="#i-seta"/></svg> Solicite ou acompanhe
+    </button>
+
+    <hr class="entrada-risco">
+    <button class="entrada-link" type="button" id="btn-validar">Valide sua carteirinha no Meia-Entrada.org</button>
+    <button class="entrada-demo" type="button" id="btn-demo">Ver um exemplo pronto</button>
   </div>
 </section>
 

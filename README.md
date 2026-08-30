@@ -119,7 +119,8 @@ o app não depende de servidor de terceiros e continua igual offline. A licença
 `assets/fontes/LICENCA.txt`.
 
 O logotipo `dne` em `assets/img/` foi **extraído da captura do aplicativo**, com recuperação
-do canal alfa, e é usado como máscara CSS para acompanhar o tema claro/escuro. Os selos da
+do canal alfa, e é usado como máscara CSS para acompanhar o tema claro/escuro. Os ícones em
+`assets/icone-*.png` são o próprio ícone do aplicativo, recortado da página da App Store. Os selos da
 UNE, da UBES e da ANPG continuam sendo desenhos próprios, feitos no mesmo estilo — não são
 os arquivos de marca das entidades. Nada disso implica vínculo com a UNE, a UBES ou a ANPG:
 é uma réplica acadêmica, para estudo de interface.

@@ -762,15 +762,30 @@
 
     window.addEventListener('hashchange', aplicarRota);
 
-    /* --- login --- */
-    $('#login-cpf').addEventListener('input', function () { this.value = mascaraCpf(this.value); });
+    /* --- login: CPF e data de nascimento, como no aplicativo --- */
+    function mascaraData(v) {
+      var d = v.replace(/\D/g, '').slice(0, 8);
+      if (d.length > 4) return d.slice(0, 2) + '/' + d.slice(2, 4) + '/' + d.slice(4);
+      if (d.length > 2) return d.slice(0, 2) + '/' + d.slice(2);
+      return d;
+    }
+    function conferirEntrar() {
+      // o botão só acende com os dois campos preenchidos, como no original
+      $('#btn-entrar').disabled = !($('#login-cpf').value.trim() && $('#login-nasc').value.trim());
+    }
+    $('#login-cpf').addEventListener('input', function () {
+      this.value = mascaraCpf(this.value); conferirEntrar();
+    });
+    $('#login-nasc').addEventListener('input', function () {
+      this.value = mascaraData(this.value); conferirEntrar();
+    });
     $('#form-login').addEventListener('submit', function (ev) {
       ev.preventDefault();
       var okCpf = cpfValido($('#login-cpf').value);
-      var okSenha = $('#login-senha').value.length >= 4;
+      var okNasc = /^\d{2}\/\d{2}\/\d{4}$/.test($('#login-nasc').value);
       $('#cf-login-cpf').classList.toggle('invalido', !okCpf);
-      $('#cf-login-senha').classList.toggle('invalido', !okSenha);
-      if (!okCpf || !okSenha) return;
+      $('#cf-login-nasc').classList.toggle('invalido', !okNasc);
+      if (!okCpf || !okNasc) return;
       if (!estado.estudante) {
         estado.estudante = JSON.parse(JSON.stringify(DADOS.estudanteDemo));
         estado.estudante.cpf = mascaraCpf($('#login-cpf').value);
@@ -781,16 +796,14 @@
       salvar();
       ir('inicio');
     });
+    // No aplicativo original este link abre o site da meia-entrada. Aqui a
+    // validação é a tela de certificado da própria réplica, que só existe
+    // depois que a pessoa monta o documento.
+    $('#btn-validar').addEventListener('click', function () {
+      if (estado.estudante) ir('certificado');
+      else aviso('A validação aparece depois que você monta o seu documento.');
+    });
     $('#btn-demo').addEventListener('click', entrarComoDemo);
-    $('#btn-mostrar-login').addEventListener('click', function () {
-      $('#bloco-boas-vindas').hidden = true;
-      $('#form-login').hidden = false;
-      $('#login-cpf').focus();
-    });
-    $('#btn-voltar-boas-vindas').addEventListener('click', function () {
-      $('#form-login').hidden = true;
-      $('#bloco-boas-vindas').hidden = false;
-    });
 
     /* --- carteirinha --- */
     $('#btn-apresentar-topo').addEventListener('click', function () { ir('apresentar'); });
@@ -914,8 +927,8 @@
     $('#btn-sair').addEventListener('click', function () {
       estado.logado = false;
       salvar();
-      $('#form-login').hidden = true;
-      $('#bloco-boas-vindas').hidden = false;
+      $('#form-login').reset();
+      $('#btn-entrar').disabled = true;
       ir('login');
     });
     $('#btn-limpar').addEventListener('click', function () {
